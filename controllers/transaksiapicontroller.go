@@ -19,7 +19,7 @@ type TransaksiAPIController struct {
 
 func InitTransaksiAPIController(s *session.Store) *TransaksiAPIController {
 	db := database.InitDb()
-	// gorm sync
+
 	db.AutoMigrate(&models.Transaksi{})
 
 	return &TransaksiAPIController{Db: db, store: s}
@@ -33,22 +33,20 @@ func (controller *TransaksiAPIController) AddTransaksi(c *fiber.Ctx) error {
 	var dataTransaksi models.Transaksi
 	var dataCart models.Cart
 
-	// Find the product first,
 	err := models.GetCart(controller.Db, &dataCart, intUserId)
 	if err != nil {
-		return c.SendStatus(500)
+		return c.SendStatus(400)
 	}
 
 	errs := models.CreateTransaksi(controller.Db, &dataTransaksi, uint(intUserId), dataCart.Products)
 	if errs != nil {
-		return c.SendStatus(500)
+		return c.SendStatus(400)
 	}
 
-	// Delete products in cart
 	errss := models.UpdateCart(controller.Db, dataCart.Products, &dataCart, uint(intUserId))
 
 	if errss != nil {
-		return c.SendStatus(500)
+		return c.SendStatus(400)
 	}
 
 	if intUserId != 1 {
@@ -63,14 +61,14 @@ func (controller *TransaksiAPIController) AddTransaksi(c *fiber.Ctx) error {
 
 // GET /historytransaksi/:userid
 func (controller *TransaksiAPIController) GetTransaksi(c *fiber.Ctx) error {
-	params := c.AllParams() 
+	params := c.AllParams()
 
 	intUserId, _ := strconv.Atoi(params["userid"])
 
 	var dataTransaksi []models.Transaksi
 	err := models.GetTransaksiById(controller.Db, &dataTransaksi, intUserId)
 	if err != nil {
-		return c.SendStatus(500) 
+		return c.SendStatus(500)
 	}
 
 	if intUserId != 1 {
@@ -93,7 +91,8 @@ func (controller *TransaksiAPIController) DetailTransaksi(c *fiber.Ctx) error {
 	var dataTransaksi models.Transaksi
 	err := models.GetTransaksi(controller.Db, &dataTransaksi, intTransaksiId)
 	if err != nil {
-		return c.SendStatus(500) 
+		return c.SendStatus(500)
+	}
 
 	return c.JSON(fiber.Map{
 		"Title":    "History Transaksi",

@@ -18,7 +18,7 @@ type ProductAPIController struct {
 
 func InitProductAPIController() *ProductAPIController {
 	db := database.InitDb()
-	// gorm
+
 	db.AutoMigrate(&models.Product{})
 
 	return &ProductAPIController{Db: db}

@@ -10,8 +10,6 @@ func main() {
 	// session
 	store := session.New()
 
-	// load template engine
-
 	app := fiber.New()
 
 	// static
@@ -24,8 +22,8 @@ func main() {
 	// Fungsi Check Login
 	CheckLogin := func(c *fiber.Ctx) error {
 		sess, _ := store.Get(c)
-		val := sess.Get("username")
-		if val != nil {
+		temp := sess.Get("username")
+		if temp != nil {
 			return c.Next()
 		}
 

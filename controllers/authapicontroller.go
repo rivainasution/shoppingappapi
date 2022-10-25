@@ -25,7 +25,7 @@ type AuthAPIController struct {
 // init
 func InitAuthAPIController(s *session.Store) *AuthAPIController {
 	db := database.InitDb()
-	// gorm sync
+
 	db.AutoMigrate(&models.User{})
 
 	return &AuthAPIController{Db: db, store: s}

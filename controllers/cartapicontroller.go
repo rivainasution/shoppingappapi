@@ -19,7 +19,7 @@ type CartApiController struct {
 
 func InitCartAPIController(s *session.Store) *CartApiController {
 	db := database.InitDb()
-	// gorm sync
+
 	db.AutoMigrate(&models.Cart{})
 
 	return &CartApiController{Db: db, store: s}
@@ -32,20 +32,21 @@ func (controller *CartApiController) AddCart(c *fiber.Ctx) error {
 	intCartId, _ := strconv.Atoi(params["cartid"])
 	intProductId, _ := strconv.Atoi(params["productid"])
 
-	var cart models.Cart
-	var product models.Product
+	var dataCart models.Cart
+	var dataProduct models.Product
 
-	err := models.GetProductById(controller.Db, &product, intProductId)
+	err := models.GetProductById(controller.Db, &dataProduct, intProductId)
+
 	if err != nil {
-		return c.SendStatus(500)
+		return c.SendStatus(400)
 	}
 
-	errs := models.GetCartById(controller.Db, &cart, intCartId)
+	errs := models.GetCartById(controller.Db, &dataCart, intCartId)
 	if errs != nil {
-		return c.SendStatus(500)
+		return c.SendStatus(400)
 	}
 
-	errss := models.AddCart(controller.Db, &cart, &product)
+	errss := models.AddCart(controller.Db, &dataCart, &dataProduct)
 	if errss != nil {
 		return c.SendStatus(500)
 	}
