@@ -1,0 +1,23 @@
+{{template "partials/header" .}}
+
+    <h1 class="my-3">Login</h1>
+
+    <div class="border border-secondary rounded my-3">
+        <h4 class="text-center my-3">Form Login</h4>
+        <form method="POST" action="/login" class="m-3">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" required id="username"
+                    placeholder="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password"
+                    placeholder="password">
+            </div>
+            <p class="text-muted">Belum memiliki akun? <a href="/register">Daftar Akun</a> </p>
+            <button type="submit" class="btn btn-primary">Masuk</button>
+        </form>
+    </div>
+
+    {{template "partials/footer" .}}

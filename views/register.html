@@ -1,0 +1,28 @@
+{{template "partials/header" .}}
+
+    <h1 class="my-3">Daptar Akun</h1>
+
+    <div class="border border-secondary rounded my-3">
+        <h4 class="text-center my-3">Form Daptar Akun</h4>
+        <form method="POST" action="/register" class="m-3">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nama</label>
+                <input type="text" class="form-control" name="name" required id="name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" required id="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Daptar</button>
+        </form>
+    </div>
+
+    {{template "partials/footer" .}}

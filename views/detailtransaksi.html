@@ -1,0 +1,43 @@
+{{template "partials/header" .}}
+
+<h1 class="my-3">Riwayat Belanja</h1>
+
+<div class="border border-secondary rounded my-3">
+    <h4 class="text-center my-3">List Produk</h4>
+    <div class="container">
+        {{range .Products}}
+            <div class="d-flex flex-row rounded my-3 hov">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div style="width: 7rem;">
+                        <img src="/{{.Image}}"  class="card-img-top" alt="{{.Name}}">
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="p-2 ">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Nama Produk</th>
+                                    <td>:</td>
+                                    <td><a href="/products/detail/{{.Id}}" class="card-title">{{.Name}}</a></td>
+                                </tr>
+                                <tr>
+                                    <th>Toko</th>
+                                    <td>:</td>
+                                    <td>{{.Shop}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Harga Produk</th>
+                                    <td>:</td>
+                                    <td>$ {{.Price}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+            </div>
+        {{end}}
+    </div>
+</div>
+
+{{template "partials/footer" .}}
